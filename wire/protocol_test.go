@@ -35,17 +35,17 @@ func TestServiceFlagStringer(t *testing.T) {
 	}
 }
 
-// TestBitcoinNetStringer tests the stringized output for bitcoin net types.
-func TestBitcoinNetStringer(t *testing.T) {
+// TestQtumNetStringer tests the stringized output for bitcoin net types.
+func TestQtumNetStringer(t *testing.T) {
 	tests := []struct {
-		in   BitcoinNet
+		in   QtumNet
 		want string
 	}{
 		{MainNet, "MainNet"},
 		{TestNet, "TestNet"},
 		{TestNet3, "TestNet3"},
 		{SimNet, "SimNet"},
-		{0xffffffff, "Unknown BitcoinNet (4294967295)"},
+		{0xffffffff, "Unknown QtumNet (4294967295)"},
 	}
 
 	t.Logf("Running %d tests", len(tests))

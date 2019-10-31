@@ -138,8 +138,8 @@ func (f ServiceFlag) String() string {
 	return s
 }
 
-// BitcoinNet represents which bitcoin network a message belongs to.
-type BitcoinNet uint32
+// QtumNet represents which bitcoin network a message belongs to.
+type QtumNet uint32
 
 // Constants used to indicate the message bitcoin network.  They can also be
 // used to seek to the next message when a stream's state is unknown, but
@@ -147,32 +147,28 @@ type BitcoinNet uint32
 // better idea to simply disconnect clients that are misbehaving over TCP.
 const (
 	// MainNet represents the main bitcoin network.
-	MainNet BitcoinNet = 0xd9b4bef9
-
-	// TestNet represents the regression test network.
-	TestNet BitcoinNet = 0xdab5bffa
+	MainNet QtumNet = 0xd3a6cff1
 
 	// TestNet3 represents the test network (version 3).
-	TestNet3 BitcoinNet = 0x0709110b
+	TestNet3 QtumNet = 0x0615220d
 
-	// SimNet represents the simulation test network.
-	SimNet BitcoinNet = 0x12141c16
+	// TestNet represents the regression test network.
+	Regtest QtumNet = 0xe1c6ddfd
 )
 
 // bnStrings is a map of bitcoin networks back to their constant names for
 // pretty printing.
-var bnStrings = map[BitcoinNet]string{
+var bnStrings = map[QtumNet]string{
 	MainNet:  "MainNet",
-	TestNet:  "TestNet",
 	TestNet3: "TestNet3",
-	SimNet:   "SimNet",
+	Regtest:  "Regtest",
 }
 
-// String returns the BitcoinNet in human-readable form.
-func (n BitcoinNet) String() string {
+// String returns the QtumNet in human-readable form.
+func (n QtumNet) String() string {
 	if s, ok := bnStrings[n]; ok {
 		return s
 	}
 
-	return fmt.Sprintf("Unknown BitcoinNet (%d)", uint32(n))
+	return fmt.Sprintf("Unknown QtumNet (%d)", uint32(n))
 }

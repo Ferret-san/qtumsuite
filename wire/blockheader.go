@@ -6,6 +6,7 @@ package wire
 
 import (
 	"bytes"
+	"github.com/btcsuite/btcd/wire"
 	"io"
 	"time"
 
@@ -14,8 +15,8 @@ import (
 
 // MaxBlockHeaderPayload is the maximum number of bytes a block header can be.
 // Version 4 bytes + Timestamp 4 bytes + Bits 4 bytes + Nonce 4 bytes +
-// PrevBlock and MerkleRoot hashes.
-const MaxBlockHeaderPayload = 16 + (chainhash.HashSize * 2)
+// PrevBlock and MerkleRoot hashes + PrevoutStake 4 + 32 + BlockSig 150
+const MaxBlockHeaderPayload = 16 + (chainhash.HashSize * 2) + 36 + 150
 
 // BlockHeader defines information about a block and is used in the bitcoin
 // block (MsgBlock) and headers (MsgHeaders) messages.
@@ -38,6 +39,15 @@ type BlockHeader struct {
 
 	// Nonce used to generate the block.
 	Nonce uint32
+
+	HashStateRoot chainhash.Hash
+
+	HashUTXORoot chainhash.Hash
+
+	PrevoutStake wire.OutPoint
+	//
+	//BlockSig string
+
 }
 
 // blockHeaderLen is a constant that represents the number of bytes for a block
