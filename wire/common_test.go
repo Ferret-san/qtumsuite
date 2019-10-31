@@ -127,7 +127,7 @@ func TestElementWire(t *testing.T) {
 		},
 		{
 			QtumNet(MainNet),
-			[]byte{0xf9, 0xbe, 0xb4, 0xd9},
+			[]byte{0xf1, 0xcf, 0xa6, 0xd3},
 		},
 		// Type not supported by the "fast" path and requires reflection.
 		{

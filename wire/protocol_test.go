@@ -42,9 +42,8 @@ func TestQtumNetStringer(t *testing.T) {
 		want string
 	}{
 		{MainNet, "MainNet"},
-		{TestNet, "TestNet"},
+		{Regtest, "Regtest"},
 		{TestNet3, "TestNet3"},
-		{SimNet, "SimNet"},
 		{0xffffffff, "Unknown QtumNet (4294967295)"},
 	}
 
