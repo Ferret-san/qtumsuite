@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/btcsuite/btcd/btcec"
-	"github.com/btcsuite/qtumsuite"
+	"github.com/qtumproject/qtumsuite"
 	"github.com/qtumproject/qtumsuite/chaincfg"
 	"github.com/qtumproject/qtumsuite/wire"
 	"golang.org/x/crypto/ripemd160"

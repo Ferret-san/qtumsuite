@@ -15,7 +15,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/btcsuite/qtumsuite"
+	"github.com/qtumproject/qtumsuite"
 	"github.com/qtumproject/qtumsuite/chaincfg/chainhash"
 	"github.com/qtumproject/qtumsuite/wire"
 )

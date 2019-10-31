@@ -10,7 +10,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/btcsuite/qtumsuite"
+	"github.com/qtumproject/qtumsuite"
 	"github.com/qtumproject/qtumsuite/chaincfg"
 	"github.com/qtumproject/qtumsuite/wire"
 )
