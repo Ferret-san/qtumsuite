@@ -596,7 +596,7 @@ func (b *bogusAddress) String() string {
 func TestPayToAddrScript(t *testing.T) {
 	t.Parallel()
 
-	// 1MirQ9bwyQcGVJPwKUgapu5ouK2E2Ey4gX
+	// QhKqWStf9sV5vSUxjp14xAsSQZxwGSx7Sf
 	p2pkhMain, err := qtumsuite.NewAddressPubKeyHash(hexToBytes("e34cce70c86"+
 		"373273efcc54ce7d2a491bb4a0e84"), &chaincfg.MainNetParams)
 	if err != nil {
