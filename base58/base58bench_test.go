@@ -8,7 +8,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/btcsuite/btcutil/base58"
+	"github.com/qtumproject/qtumsuite/base58"
 )
 
 func BenchmarkBase58Encode(b *testing.B) {

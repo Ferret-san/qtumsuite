@@ -2,7 +2,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-package btcutil
+package qtumsuite
 
 import (
 	"bytes"
@@ -12,9 +12,9 @@ import (
 	"strings"
 
 	"github.com/btcsuite/btcd/btcec"
-	"github.com/btcsuite/btcd/chaincfg"
-	"github.com/btcsuite/btcutil/base58"
-	"github.com/btcsuite/btcutil/bech32"
+	"github.com/qtumproject/qtumsuite/base58"
+	"github.com/qtumproject/qtumsuite/bech32"
+	"github.com/qtumproject/qtumsuite/chaincfg"
 	"golang.org/x/crypto/ripemd160"
 )
 
