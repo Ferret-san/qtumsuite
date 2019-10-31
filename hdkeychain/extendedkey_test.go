@@ -574,7 +574,7 @@ func TestExtendedKeyAPI(t *testing.T) {
 			parentFP:  0,
 			privKey:   "e8f32e723decf4051aefac8e2c93c9c5b214313817cdb01a1494b917c8436b35",
 			pubKey:    "0339a36013301597daef41fbe593a02cc513d0b55527ec2df1050e2e8ff49c85c2",
-			address:   "15mKKb2eos1hWa6tisdPwwDC1a5J1y9nma",
+			address:   "QRNJRtKMzKtWwiBv9Cwt5CzpWq21GKYqGM",
 		},
 		{
 			name:       "test vector 1 chain m/0H/1/2H public",
@@ -583,7 +583,7 @@ func TestExtendedKeyAPI(t *testing.T) {
 			parentFP:   3203769081,
 			privKeyErr: ErrNotPrivExtKey,
 			pubKey:     "0357bfe1e341d01c69fe5654309956cbea516822fba8a601743a012a7896ee8dc2",
-			address:    "1NjxqbA9aZWnh17q1UW3rB4EPu79wDXj7x",
+			address:    "QiLwwtSrm2Pc89CrRopXySqruA3s9gpfiw",
 		},
 	}
 
@@ -676,24 +676,6 @@ func TestNet(t *testing.T) {
 	}{
 		// Private extended keys.
 		{
-			name:      "mainnet -> simnet",
-			key:       "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
-			origNet:   &chaincfg.MainNetParams,
-			newNet:    &chaincfg.SimNetParams,
-			newPriv:   "sprv8Erh3X3hFeKunvVdAGQQtambRPapECWiTDtvsTGdyrhzhbYgnSZajRRWbihzvq4AM4ivm6uso31VfKaukwJJUs3GYihXP8ebhMb3F2AHu3P",
-			newPub:    "spub4Tr3T2ab61tD1Qa6GHwRFiiKyRRJdfEZpSpXfqgFYCEyaPsqKysqHDjzSzMJSiUEGbcsG3w2SLMoTqn44B8x6u3MLRRkYfACTUBnHK79THk",
-			isPrivate: true,
-		},
-		{
-			name:      "simnet -> mainnet",
-			key:       "sprv8Erh3X3hFeKunvVdAGQQtambRPapECWiTDtvsTGdyrhzhbYgnSZajRRWbihzvq4AM4ivm6uso31VfKaukwJJUs3GYihXP8ebhMb3F2AHu3P",
-			origNet:   &chaincfg.SimNetParams,
-			newNet:    &chaincfg.MainNetParams,
-			newPriv:   "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
-			newPub:    "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
-			isPrivate: true,
-		},
-		{
 			name:      "mainnet -> regtest",
 			key:       "xprv9s21ZrQH143K3QTDL4LXw2F7HEK3wJUD2nW2nRk4stbPy6cq3jPPqjiChkVvvNKmPGJxWUtg6LnF5kejMRNNU3TGtRBeJgk33yuGBxrMPHi",
 			origNet:   &chaincfg.MainNetParams,
@@ -713,22 +695,6 @@ func TestNet(t *testing.T) {
 		},
 
 		// Public extended keys.
-		{
-			name:      "mainnet -> simnet",
-			key:       "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
-			origNet:   &chaincfg.MainNetParams,
-			newNet:    &chaincfg.SimNetParams,
-			newPub:    "spub4Tr3T2ab61tD1Qa6GHwRFiiKyRRJdfEZpSpXfqgFYCEyaPsqKysqHDjzSzMJSiUEGbcsG3w2SLMoTqn44B8x6u3MLRRkYfACTUBnHK79THk",
-			isPrivate: false,
-		},
-		{
-			name:      "simnet -> mainnet",
-			key:       "spub4Tr3T2ab61tD1Qa6GHwRFiiKyRRJdfEZpSpXfqgFYCEyaPsqKysqHDjzSzMJSiUEGbcsG3w2SLMoTqn44B8x6u3MLRRkYfACTUBnHK79THk",
-			origNet:   &chaincfg.SimNetParams,
-			newNet:    &chaincfg.MainNetParams,
-			newPub:    "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
-			isPrivate: false,
-		},
 		{
 			name:      "mainnet -> regtest",
 			key:       "xpub661MyMwAqRbcFtXgS5sYJABqqG9YLmC4Q1Rdap9gSE8NqtwybGhePY2gZ29ESFjqJoCu1Rupje8YtGqsefD265TMg7usUDFdp6W1EGMcet8",
@@ -959,7 +925,7 @@ func TestZero(t *testing.T) {
 			return false
 		}
 
-		wantAddr := "1HT7xU2Ngenf7D4yocz2SAcnNLW7rK8d4E"
+		wantAddr := "Qd474mK5s7fUYMA1DxJWZSQQsbSq6maeug"
 		addr, err := key.Address(&chaincfg.MainNetParams)
 		if err != nil {
 			t.Errorf("Addres s #%d (%s): unexpected error: %v", i,
