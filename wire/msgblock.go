@@ -228,7 +228,10 @@ func (msg *MsgBlock) SerializeNoWitness(w io.Writer) error {
 func (msg *MsgBlock) SerializeSize() int {
 	// Block header bytes + Serialized varint size for the number of
 	// transactions.
-	n := blockHeaderLen + VarIntSerializeSize(uint64(len(msg.Transactions)))
+
+	w := &bytes.Buffer{}
+	msg.Header.Serialize(w)
+	n := len(w.Bytes()) + VarIntSerializeSize(uint64(len(msg.Transactions)))
 
 	for _, tx := range msg.Transactions {
 		n += tx.SerializeSize()
