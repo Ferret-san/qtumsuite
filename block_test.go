@@ -19,16 +19,16 @@ import (
 
 // TestBlock tests the API for Block.
 func TestBlock(t *testing.T) {
-	b := qtumsuite.NewBlock(&Block100000)
+	b := qtumsuite.NewBlock(&Block99999)
 
 	// Ensure we get the same data back out.
-	if msgBlock := b.MsgBlock(); !reflect.DeepEqual(msgBlock, &Block100000) {
+	if msgBlock := b.MsgBlock(); !reflect.DeepEqual(msgBlock, &Block99999) {
 		t.Errorf("MsgBlock: mismatched MsgBlock - got %v, want %v",
-			spew.Sdump(msgBlock), spew.Sdump(&Block100000))
+			spew.Sdump(msgBlock), spew.Sdump(&Block99999))
 	}
 
 	// Ensure block height set and get work properly.
-	wantHeight := int32(100000)
+	wantHeight := int32(99999)
 	b.SetHeight(wantHeight)
 	if gotHeight := b.Height(); gotHeight != wantHeight {
 		t.Errorf("Height: mismatched height - got %v, want %v",
@@ -36,7 +36,7 @@ func TestBlock(t *testing.T) {
 	}
 
 	// Hash for block 100,000.
-	wantHashStr := "3ba27aa200b1cecaad478d2b00432346c3f1f3986da1afd33e506"
+	wantHashStr := "121d7323ccf8e29595d9a27bb99f6d9a2d41e9301080bb8f0fc221be2e99fa77"
 	wantHash, err := chainhash.NewHashFromStr(wantHashStr)
 	if err != nil {
 		t.Errorf("NewHashFromStr: %v", err)
@@ -51,16 +51,16 @@ func TestBlock(t *testing.T) {
 		}
 	}
 
-	// Hashes for the transactions in Block100000.
+	// Hashes for the transactions in Block99999.
 	wantTxHashes := []string{
-		"8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87",
+		"b55b0b1255accaa5cf46a27b06aef05ddd83c55dd98dc212313aaf2d4109ce64",
 		"fff2525b8931402dd09222c50775608f75787bd2b87e56995a7bdd30f79702c4",
 		"6359f0868171b1d194cbee1af2f16ea598ae8fad666d9b012c8ed2b79a236ec4",
 		"e9a66845e05d5abc0ad04ec80f774a7e585c6e8db975962d069a522137b80c1d",
 	}
 
 	// Create a new block to nuke all cached data.
-	b = qtumsuite.NewBlock(&Block100000)
+	b = qtumsuite.NewBlock(&Block99999)
 
 	// Request hash for all transactions one at a time via Tx.
 	for i, txHash := range wantTxHashes {
@@ -88,7 +88,7 @@ func TestBlock(t *testing.T) {
 	}
 
 	// Create a new block to nuke all cached data.
-	b = qtumsuite.NewBlock(&Block100000)
+	b = qtumsuite.NewBlock(&Block99999)
 
 	// Request slice of all transactions multiple times to test generation
 	// and caching.
@@ -120,12 +120,12 @@ func TestBlock(t *testing.T) {
 	}
 
 	// Serialize the test block.
-	var block100000Buf bytes.Buffer
-	err = Block100000.Serialize(&block100000Buf)
+	var Block99999Buf bytes.Buffer
+	err = Block99999.Serialize(&Block99999Buf)
 	if err != nil {
 		t.Errorf("Serialize: %v", err)
 	}
-	block100000Bytes := block100000Buf.Bytes()
+	Block99999Bytes := Block99999Buf.Bytes()
 
 	// Request serialized bytes multiple times to test generation and
 	// caching.
@@ -135,20 +135,20 @@ func TestBlock(t *testing.T) {
 			t.Errorf("Bytes: %v", err)
 			continue
 		}
-		if !bytes.Equal(serializedBytes, block100000Bytes) {
+		if !bytes.Equal(serializedBytes, Block99999Bytes) {
 			t.Errorf("Bytes #%d wrong bytes - got %v, want %v", i,
 				spew.Sdump(serializedBytes),
-				spew.Sdump(block100000Bytes))
+				spew.Sdump(Block99999Bytes))
 			continue
 		}
 	}
 
-	// Transaction offsets and length for the transaction in Block100000.
+	// Transaction offsets and length for the transaction in Block99999.
 	wantTxLocs := []wire.TxLoc{
-		{TxStart: 81, TxLen: 135},
-		{TxStart: 216, TxLen: 259},
-		{TxStart: 475, TxLen: 257},
-		{TxStart: 732, TxLen: 225},
+		{TxStart: 253, TxLen: 135},
+		{TxStart: 388, TxLen: 259},
+		{TxStart: 647, TxLen: 257},
+		{TxStart: 904, TxLen: 225},
 	}
 
 	// Ensure the transaction location information is accurate.
@@ -167,15 +167,15 @@ func TestBlock(t *testing.T) {
 // TestNewBlockFromBytes tests creation of a Block from serialized bytes.
 func TestNewBlockFromBytes(t *testing.T) {
 	// Serialize the test block.
-	var block100000Buf bytes.Buffer
-	err := Block100000.Serialize(&block100000Buf)
+	var Block99999Buf bytes.Buffer
+	err := Block99999.Serialize(&Block99999Buf)
 	if err != nil {
 		t.Errorf("Serialize: %v", err)
 	}
-	block100000Bytes := block100000Buf.Bytes()
+	Block99999Bytes := Block99999Buf.Bytes()
 
 	// Create a new block from the serialized bytes.
-	b, err := qtumsuite.NewBlockFromBytes(block100000Bytes)
+	b, err := qtumsuite.NewBlockFromBytes(Block99999Bytes)
 	if err != nil {
 		t.Errorf("NewBlockFromBytes: %v", err)
 		return
@@ -187,16 +187,16 @@ func TestNewBlockFromBytes(t *testing.T) {
 		t.Errorf("Bytes: %v", err)
 		return
 	}
-	if !bytes.Equal(serializedBytes, block100000Bytes) {
+	if !bytes.Equal(serializedBytes, Block99999Bytes) {
 		t.Errorf("Bytes: wrong bytes - got %v, want %v",
 			spew.Sdump(serializedBytes),
-			spew.Sdump(block100000Bytes))
+			spew.Sdump(Block99999Bytes))
 	}
 
 	// Ensure the generated MsgBlock is correct.
-	if msgBlock := b.MsgBlock(); !reflect.DeepEqual(msgBlock, &Block100000) {
+	if msgBlock := b.MsgBlock(); !reflect.DeepEqual(msgBlock, &Block99999) {
 		t.Errorf("MsgBlock: mismatched MsgBlock - got %v, want %v",
-			spew.Sdump(msgBlock), spew.Sdump(&Block100000))
+			spew.Sdump(msgBlock), spew.Sdump(&Block99999))
 	}
 }
 
@@ -204,15 +204,15 @@ func TestNewBlockFromBytes(t *testing.T) {
 // raw bytes.
 func TestNewBlockFromBlockAndBytes(t *testing.T) {
 	// Serialize the test block.
-	var block100000Buf bytes.Buffer
-	err := Block100000.Serialize(&block100000Buf)
+	var Block99999Buf bytes.Buffer
+	err := Block99999.Serialize(&Block99999Buf)
 	if err != nil {
 		t.Errorf("Serialize: %v", err)
 	}
-	block100000Bytes := block100000Buf.Bytes()
+	Block99999Bytes := Block99999Buf.Bytes()
 
 	// Create a new block from the serialized bytes.
-	b := qtumsuite.NewBlockFromBlockAndBytes(&Block100000, block100000Bytes)
+	b := qtumsuite.NewBlockFromBlockAndBytes(&Block99999, Block99999Bytes)
 
 	// Ensure we get the same data back out.
 	serializedBytes, err := b.Bytes()
@@ -220,14 +220,14 @@ func TestNewBlockFromBlockAndBytes(t *testing.T) {
 		t.Errorf("Bytes: %v", err)
 		return
 	}
-	if !bytes.Equal(serializedBytes, block100000Bytes) {
+	if !bytes.Equal(serializedBytes, Block99999Bytes) {
 		t.Errorf("Bytes: wrong bytes - got %v, want %v",
 			spew.Sdump(serializedBytes),
-			spew.Sdump(block100000Bytes))
+			spew.Sdump(Block99999Bytes))
 	}
-	if msgBlock := b.MsgBlock(); !reflect.DeepEqual(msgBlock, &Block100000) {
+	if msgBlock := b.MsgBlock(); !reflect.DeepEqual(msgBlock, &Block99999) {
 		t.Errorf("MsgBlock: mismatched MsgBlock - got %v, want %v",
-			spew.Sdump(msgBlock), spew.Sdump(&Block100000))
+			spew.Sdump(msgBlock), spew.Sdump(&Block99999))
 	}
 }
 
@@ -242,22 +242,22 @@ func TestBlockErrors(t *testing.T) {
 	}
 
 	// Serialize the test block.
-	var block100000Buf bytes.Buffer
-	err := Block100000.Serialize(&block100000Buf)
+	var Block99999Buf bytes.Buffer
+	err := Block99999.Serialize(&Block99999Buf)
 	if err != nil {
 		t.Errorf("Serialize: %v", err)
 	}
-	block100000Bytes := block100000Buf.Bytes()
+	Block99999Bytes := Block99999Buf.Bytes()
 
 	// Create a new block from the serialized bytes.
-	b, err := qtumsuite.NewBlockFromBytes(block100000Bytes)
+	b, err := qtumsuite.NewBlockFromBytes(Block99999Bytes)
 	if err != nil {
 		t.Errorf("NewBlockFromBytes: %v", err)
 		return
 	}
 
 	// Truncate the block byte buffer to force errors.
-	shortBytes := block100000Bytes[:80]
+	shortBytes := Block99999Bytes[:80]
 	_, err = qtumsuite.NewBlockFromBytes(shortBytes)
 	if err != io.EOF {
 		t.Errorf("NewBlockFromBytes: did not get expected error - "+
@@ -270,7 +270,7 @@ func TestBlockErrors(t *testing.T) {
 		t.Errorf("TxHash: wrong error - got: %v <%T>, "+
 			"want: <%T>", err, err, qtumsuite.OutOfRangeError(""))
 	}
-	_, err = b.TxHash(len(Block100000.Transactions) + 1)
+	_, err = b.TxHash(len(Block99999.Transactions) + 1)
 	if _, ok := err.(qtumsuite.OutOfRangeError); !ok {
 		t.Errorf("TxHash: wrong error - got: %v <%T>, "+
 			"want: <%T>", err, err, qtumsuite.OutOfRangeError(""))
@@ -282,7 +282,7 @@ func TestBlockErrors(t *testing.T) {
 		t.Errorf("Tx: wrong error - got: %v <%T>, "+
 			"want: <%T>", err, err, qtumsuite.OutOfRangeError(""))
 	}
-	_, err = b.Tx(len(Block100000.Transactions) + 1)
+	_, err = b.Tx(len(Block99999.Transactions) + 1)
 	if _, ok := err.(qtumsuite.OutOfRangeError); !ok {
 		t.Errorf("Tx: wrong error - got: %v <%T>, "+
 			"want: <%T>", err, err, qtumsuite.OutOfRangeError(""))
@@ -299,30 +299,62 @@ func TestBlockErrors(t *testing.T) {
 	}
 }
 
-// Block100000 defines block 100,000 of the block chain.  It is used to
+// Block99999 defines block 99999 of the block chain.  It is used to
 // test Block operations.
-var Block100000 = wire.MsgBlock{
+var Block99999 = wire.MsgBlock{
 	Header: wire.BlockHeader{
-		Version: 1,
+		Version: 2,
 		PrevBlock: chainhash.Hash([32]byte{ // Make go vet happy.
-			0x50, 0x12, 0x01, 0x19, 0x17, 0x2a, 0x61, 0x04,
-			0x21, 0xa6, 0xc3, 0x01, 0x1d, 0xd3, 0x30, 0xd9,
-			0xdf, 0x07, 0xb6, 0x36, 0x16, 0xc2, 0xcc, 0x1f,
-			0x1c, 0xd0, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00,
-		}), // 000000000002d01c1fccc21636b607dfd930d31d01c3a62104612a1719011250
+			0x2b, 0x24, 0xbd, 0xd0, 0xa7, 0x88, 0xeb, 0x1e,
+			0xdb, 0x44, 0x25, 0xe6, 0xc1, 0x94, 0x1a, 0x58,
+			0x62, 0xd8, 0x27, 0xa2, 0x05, 0x87, 0x49, 0xcc,
+			0x86, 0x08, 0x2d, 0x58, 0x27, 0x64, 0xdf, 0x2d,
+		}), // 2ddf6427582d0886cc498705a227d862581a94c1e62544db1eeb88a7d0bd242b
 		MerkleRoot: chainhash.Hash([32]byte{ // Make go vet happy.
-			0x66, 0x57, 0xa9, 0x25, 0x2a, 0xac, 0xd5, 0xc0,
-			0xb2, 0x94, 0x09, 0x96, 0xec, 0xff, 0x95, 0x22,
-			0x28, 0xc3, 0x06, 0x7c, 0xc3, 0x8d, 0x48, 0x85,
-			0xef, 0xb5, 0xa4, 0xac, 0x42, 0x47, 0xe9, 0xf3,
-		}), // f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766
-		Timestamp: time.Unix(1293623863, 0), // 2010-12-29 11:57:43 +0000 UTC
-		Bits:      0x1b04864c,               // 453281356
-		Nonce:     0x10572b0f,               // 274148111
+			0xc5, 0xee, 0x42, 0x1c, 0x2b, 0x6e, 0x43, 0x8c,
+			0x4a, 0x1f, 0x3d, 0x1b, 0xe1, 0x15, 0xb8, 0xb1,
+			0x43, 0x72, 0x07, 0xc4, 0xb6, 0x86, 0x52, 0xcf,
+			0x22, 0xff, 0x8d, 0x7a, 0x98, 0x93, 0x8f, 0xb0,
+		}), // b08f93987a8dff22cf5286b6c4077243b1b815e11b3d1f4a8c436e2b1c42eec5
+		Timestamp: time.Unix(1518578512, 0), // 2010-12-29 11:57:43 +0000 UTC
+		Bits:      0x1a053178,               // 453281356
+		Nonce:     0,                        // 274148111
+		HashStateRoot: chainhash.Hash([32]byte{
+			0xb5, 0xd0, 0x3b, 0xdd, 0xfc, 0x31, 0x97, 0xa1,
+			0xf1, 0xac, 0xc5, 0xb7, 0x5a, 0xe3, 0x42, 0x25,
+			0x39, 0x03, 0xeb, 0xde, 0x0f, 0x5d, 0x96, 0xf8,
+			0x81, 0xb8, 0x6b, 0x8b, 0x1f, 0x43, 0x1b, 0xf5,
+		}),
+		HashUTXORoot: chainhash.Hash([32]byte{
+			0xf5, 0xf2, 0x2c, 0x17, 0xb5, 0x37, 0xd9, 0x84,
+			0xf5, 0x91, 0xae, 0x92, 0x6a, 0x35, 0xf2, 0x96,
+			0x9f, 0x8d, 0x98, 0xa9, 0xc9, 0xd3, 0x55, 0x9b,
+			0x9d, 0x1c, 0x1a, 0x87, 0x65, 0xba, 0xb4, 0x61,
+		}),
+		PrevoutStake: wire.OutPoint{
+			Hash: chainhash.Hash([32]byte{
+				0xee, 0x46, 0xfb, 0x2c, 0x46, 0x2c, 0xa1, 0x78,
+				0x05, 0xe6, 0x8c, 0xbb, 0x96, 0xa1, 0x64, 0xd0,
+				0xee, 0xb5, 0x30, 0x2d, 0x93, 0x50, 0x59, 0xdf,
+				0x71, 0x0e, 0xf1, 0xa7, 0xb3, 0x77, 0x20, 0xd1,
+			}),
+			Index: 2,
+		},
+		BlockSig: []byte{
+			0x30, 0x45, 0x02, 0x21, 0x00, 0xbe, 0xac, 0x3b,
+			0x08, 0x1a, 0x8b, 0xe6, 0x17, 0x82, 0x74, 0x12,
+			0xc1, 0xb8, 0x76, 0xdf, 0xab, 0x2a, 0x1b, 0x64,
+			0x80, 0x1f, 0xfb, 0x5d, 0xa1, 0xaf, 0xdc, 0x94,
+			0x05, 0x2b, 0xf0, 0x75, 0x37, 0x02, 0x20, 0x37,
+			0x18, 0xe6, 0xf6, 0xed, 0x44, 0x76, 0xbc, 0xa2,
+			0x8e, 0x7a, 0xa9, 0x9c, 0x10, 0x78, 0x0f, 0x22,
+			0x39, 0x51, 0xf1, 0xf9, 0x1f, 0xe0, 0x55, 0x43,
+			0x77, 0x17, 0x0c, 0x19, 0x23, 0x79, 0xba,
+		},
 	},
 	Transactions: []*wire.MsgTx{
 		{
-			Version: 1,
+			Version: 2,
 			TxIn: []*wire.TxIn{
 				{
 					PreviousOutPoint: wire.OutPoint{

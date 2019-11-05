@@ -17,7 +17,7 @@ import (
 
 // TestTx tests the API for Tx.
 func TestTx(t *testing.T) {
-	testTx := Block100000.Transactions[0]
+	testTx := Block99999.Transactions[0]
 	tx := qtumsuite.NewTx(testTx)
 
 	// Ensure we get the same data back out.
@@ -35,7 +35,7 @@ func TestTx(t *testing.T) {
 	}
 
 	// Hash for block 100,000 transaction 0.
-	wantHashStr := "8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87"
+	wantHashStr := "b55b0b1255accaa5cf46a27b06aef05ddd83c55dd98dc212313aaf2d4109ce64"
 	wantHash, err := chainhash.NewHashFromStr(wantHashStr)
 	if err != nil {
 		t.Errorf("NewHashFromStr: %v", err)
@@ -54,7 +54,7 @@ func TestTx(t *testing.T) {
 // TestNewTxFromBytes tests creation of a Tx from serialized bytes.
 func TestNewTxFromBytes(t *testing.T) {
 	// Serialize the test transaction.
-	testTx := Block100000.Transactions[0]
+	testTx := Block99999.Transactions[0]
 	var testTxBuf bytes.Buffer
 	err := testTx.Serialize(&testTxBuf)
 	if err != nil {
@@ -79,7 +79,7 @@ func TestNewTxFromBytes(t *testing.T) {
 // TestTxErrors tests the error paths for the Tx API.
 func TestTxErrors(t *testing.T) {
 	// Serialize the test transaction.
-	testTx := Block100000.Transactions[0]
+	testTx := Block99999.Transactions[0]
 	var testTxBuf bytes.Buffer
 	err := testTx.Serialize(&testTxBuf)
 	if err != nil {

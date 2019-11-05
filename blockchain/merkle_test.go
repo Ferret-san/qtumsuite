@@ -11,10 +11,10 @@ import (
 
 // TestMerkle tests the BuildMerkleTreeStore API.
 func TestMerkle(t *testing.T) {
-	//block := qtumsuite.NewBlock(&Block100000)
+	//block := qtumsuite.NewBlock(&Block99999)
 	//merkles := BuildMerkleTreeStore(block.Transactions(), false)
 	//calculatedMerkleRoot := merkles[len(merkles)-1]
-	//wantMerkle := &Block100000.Header.MerkleRoot
+	//wantMerkle := &Block99999.Header.MerkleRoot
 	//if !wantMerkle.IsEqual(calculatedMerkleRoot) {
 	//	t.Errorf("BuildMerkleTreeStore: merkle root mismatch - "+
 	//		"got %v, want %v", calculatedMerkleRoot, wantMerkle)
