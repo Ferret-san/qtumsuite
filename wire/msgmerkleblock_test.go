@@ -249,22 +249,22 @@ func TestMerkleBlockWireErrors(t *testing.T) {
 		},
 		// Force error in num hashes.
 		{
-			&merkleBlockOne, merkleBlockOneBytes, pver, BaseEncoding, 84,
+			&merkleBlockOne, merkleBlockOneBytes, pver, BaseEncoding, 112,
 			io.ErrShortWrite, io.EOF,
 		},
 		// Force error in hashes.
 		{
-			&merkleBlockOne, merkleBlockOneBytes, pver, BaseEncoding, 85,
+			&merkleBlockOne, merkleBlockOneBytes, pver, BaseEncoding, 144,
 			io.ErrShortWrite, io.EOF,
 		},
 		// Force error in num flag bytes.
 		{
-			&merkleBlockOne, merkleBlockOneBytes, pver, BaseEncoding, 117,
+			&merkleBlockOne, merkleBlockOneBytes, pver, BaseEncoding, 180,
 			io.ErrShortWrite, io.EOF,
 		},
 		// Force error in flag bytes.
 		{
-			&merkleBlockOne, merkleBlockOneBytes, pver, BaseEncoding, 118,
+			&merkleBlockOne, merkleBlockOneBytes, pver, BaseEncoding, 181,
 			io.ErrShortWrite, io.EOF,
 		},
 		// Force error due to unsupported protocol version.
@@ -331,7 +331,7 @@ func TestMerkleBlockOverflowErrors(t *testing.T) {
 	// allowed tx hashes.
 	var buf bytes.Buffer
 	WriteVarInt(&buf, pver, maxTxPerBlock+1)
-	numHashesOffset := 84
+	numHashesOffset := 84 + 101
 	exceedMaxHashes := make([]byte, numHashesOffset)
 	copy(exceedMaxHashes, merkleBlockOneBytes[:numHashesOffset])
 	exceedMaxHashes = append(exceedMaxHashes, buf.Bytes()...)
@@ -340,7 +340,7 @@ func TestMerkleBlockOverflowErrors(t *testing.T) {
 	// allowed flag bytes.
 	buf.Reset()
 	WriteVarInt(&buf, pver, maxFlagsPerMerkleBlock+1)
-	numFlagBytesOffset := 117
+	numFlagBytesOffset := 117 + 101
 	exceedMaxFlagBytes := make([]byte, numFlagBytesOffset)
 	copy(exceedMaxFlagBytes, merkleBlockOneBytes[:numFlagBytesOffset])
 	exceedMaxFlagBytes = append(exceedMaxFlagBytes, buf.Bytes()...)
@@ -388,9 +388,12 @@ var merkleBlockOne = MsgMerkleBlock{
 			0x7b, 0xa1, 0xa3, 0xc3, 0x54, 0x0b, 0xf7, 0xb1,
 			0xcd, 0xb6, 0x06, 0xe8, 0x57, 0x23, 0x3e, 0x0e,
 		}),
-		Timestamp: time.Unix(0x4966bc61, 0), // 2009-01-08 20:54:25 -0600 CST
-		Bits:      0x1d00ffff,               // 486604799
-		Nonce:     0x9962e301,               // 2573394689
+		Timestamp:     time.Unix(0x4966bc61, 0), // 2009-01-08 20:54:25 -0600 CST
+		Bits:          0x1d00ffff,               // 486604799
+		Nonce:         0x9962e301,               // 2573394689
+		HashStateRoot: mainNetGenesisHashStateRoot,
+		HashUTXORoot:  mainNetGenesisHashUTXORoot,
+		BlockSig:      make([]byte, 0),
 	},
 	Transactions: 1,
 	Hashes: []*chainhash.Hash{
@@ -419,6 +422,22 @@ var merkleBlockOneBytes = []byte{
 	0x61, 0xbc, 0x66, 0x49, // Timestamp
 	0xff, 0xff, 0x00, 0x1d, // Bits
 	0x01, 0xe3, 0x62, 0x99, // Nonce
+
+	0xe9, 0x65, 0xff, 0xd0, 0x02, 0xcd, 0x6a, 0xd0,
+	0xe2, 0xdc, 0x40, 0x2b, 0x80, 0x44, 0xde, 0x83,
+	0x3e, 0x06, 0xb2, 0x31, 0x27, 0xea, 0x8c, 0x3d,
+	0x80, 0xae, 0xc9, 0x14, 0x10, 0x77, 0x14, 0x95, // staste root
+	0x56, 0xe8, 0x1f, 0x17, 0x1b, 0xcc, 0x55, 0xa6,
+	0xff, 0x83, 0x45, 0xe6, 0x92, 0xc0, 0xf8, 0x6e,
+	0x5b, 0x48, 0xe0, 0x1b, 0x99, 0x6c, 0xad, 0xc0,
+	0x01, 0x62, 0x2f, 0xb5, 0xe3, 0x63, 0xb4, 0x21, // utxo root
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // prevout stake
+	0x00, 0x00, 0x00, 0x00, // prevout N
+	0x00, // BlockSig
+
 	0x01, 0x00, 0x00, 0x00, // TxnCount
 	0x01, // Num hashes
 	0x98, 0x20, 0x51, 0xfd, 0x1e, 0x4b, 0xa7, 0x44,
