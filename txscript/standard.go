@@ -58,6 +58,8 @@ const (
 	WitnessV0ScriptHashTy                    // Pay to witness script hash.
 	MultiSigTy                               // Multi signature.
 	NullDataTy                               // Empty data-only (provably prunable).
+	CreateSender							 // Create_sender or createcontract
+	CallSender								 // Call_Sender or contractcall
 )
 
 // scriptClassToName houses the human-readable strings which describe each
@@ -71,6 +73,8 @@ var scriptClassToName = []string{
 	WitnessV0ScriptHashTy: "witness_v0_scripthash",
 	MultiSigTy:            "multisig",
 	NullDataTy:            "nulldata",
+	CreateSender:		   "create_sender",
+	CallSender:			   "call_sender",
 }
 
 // String implements the Stringer interface by returning the name of
